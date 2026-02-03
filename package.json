@@ -3,10 +3,10 @@
   "version": "1.0.0",
   "description": "Formation de 35 heures sur l'initialisation et l'intégration du système CI avec GitHub Actions",
   "scripts": {
-    "slides": "marp slides/*.md --output dist/",
-    "slides:watch": "marp slides/*.md --watch --output dist/",
-    "slides:server": "marp slides/*.md --server",
-    "build": "marp slides/*.md --output dist/ --html"
+    "slides": "marp --input-dir slides --output dist",
+    "slides:watch": "marp --input-dir slides --output dist --watch",
+    "slides:server": "marp --input-dir slides --server",
+    "build": "marp --input-dir slides --output dist --html"
   },
   "devDependencies": {
     "@marp-team/marp-cli": "^4.0.0"
