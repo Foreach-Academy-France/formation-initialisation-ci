@@ -1,0 +1,23 @@
+{
+  "name": "formation-initialisation-ci",
+  "version": "1.0.0",
+  "description": "Formation de 35 heures sur l'initialisation et l'intégration du système CI avec GitHub Actions",
+  "scripts": {
+    "slides": "marp slides/*.md --output dist/",
+    "slides:watch": "marp slides/*.md --watch --output dist/",
+    "slides:server": "marp slides/*.md --server",
+    "build": "marp slides/*.md --output dist/ --html"
+  },
+  "devDependencies": {
+    "@marp-team/marp-cli": "^4.0.0"
+  },
+  "keywords": [
+    "formation",
+    "ci-cd",
+    "github-actions",
+    "devops",
+    "teaching"
+  ],
+  "author": "Fabrice Claeys",
+  "license": "MIT"
+}
