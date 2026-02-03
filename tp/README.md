@@ -35,9 +35,14 @@ Application web de gestion de tâches (todo list avancée).
 
 Les étudiants **forkent** le repository starter au Jour 1 :
 
+```bash
+gh repo fork Foreach-Academy-France/taskflow-starter --clone
+cd taskflow-starter
+npm install
+npm run dev
 ```
-gh repo fork foreach-academy/taskflow-starter --clone
-```
+
+**Repository starter** : https://github.com/Foreach-Academy-France/taskflow-starter
 
 Le starter contient :
 - Application TaskFlow fonctionnelle (sans CI)
