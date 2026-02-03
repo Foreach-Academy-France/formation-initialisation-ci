@@ -33,7 +33,23 @@ Ce cours vise à fournir aux étudiants les compétences nécessaires pour compr
 - **Matin (9h-12h15)** : Théorie et démonstrations
 - **Après-midi (13h15-17h)** : Travaux pratiques
 
-**1 module = 1 journée = 1 TP**
+**1 module = 1 journée**
+
+### Projet fil rouge : TaskFlow
+
+Les étudiants travaillent sur le **même projet** pendant les 5 jours, en l'enrichissant progressivement :
+
+| Jour | Enrichissement du projet |
+|------|--------------------------|
+| J1 | Fork starter → Premier workflow CI (lint) |
+| J2 | Jobs multiples, matrix Node 18/20/22, secrets |
+| J3 | Tests unitaires Vitest, coverage ≥ 70%, artifacts |
+| J4 | Branch protection, release auto sur tag SemVer |
+| J5 | Build Docker → push ghcr.io → deploy GitHub Pages |
+
+**Stack** : Vanilla JS + Vite + Vitest + Docker + GitHub Pages
+
+**Évaluation** : État final du repository TaskFlow (100 points)
 
 ---
 

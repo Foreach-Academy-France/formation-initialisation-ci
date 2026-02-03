@@ -1,48 +1,84 @@
-# Travaux Pratiques - Formation CI/CD
+# Travaux Pratiques - Projet Fil Rouge TaskFlow
 
-## Vue d'ensemble
+## Concept
 
-| TP | Module | Titre | Durée |
-|----|--------|-------|-------|
-| TP1 | Module 1 | [Premier workflow](./tp1-premier-workflow/) | 1h45 |
-| TP2 | Module 2 | [Configuration avancée](./tp2-configuration-avancee/) | 1h45 |
-| TP3 | Module 3 | [Tests automatisés](./tp3-tests-automatises/) | 1h45 |
-| TP4 | Module 4 | [Branches et versions](./tp4-branches-versions/) | 1h45 |
-| TP5 | Module 5 | [Pipeline de déploiement](./tp5-pipeline-deploiement/) | 2h15 |
+Plutôt que 5 TPs indépendants, les étudiants travaillent sur un **projet unique** qu'ils enrichissent chaque jour. Cela simule un vrai workflow DevOps où le CI/CD évolue avec le projet.
 
-## Correspondance avec le syllabus
+## Le projet : TaskFlow
 
-| Exercice syllabus | TP |
-|-------------------|-----|
-| Installation et configuration initiale d'un serveur CI | TP1 - Premier workflow |
-| Configuration d'un projet de CI avec des jobs de build | TP2 - Configuration avancée |
-| Configuration et exécution de tests automatisés | TP3 - Tests automatisés |
-| Gestion des branches et des versions dans le CI | TP4 - Branches et versions |
-| Configuration d'un pipeline de déploiement continu | TP5 - Pipeline CD |
+Application web de gestion de tâches (todo list avancée).
 
-## Prérequis
+**Stack technique :**
+- Frontend : Vanilla JS + Vite
+- Tests : Vitest
+- Linting : ESLint + Prettier
+- Container : Docker
+- Déploiement : GitHub Pages + ghcr.io
 
-- Compte GitHub avec accès aux Actions
-- Git configuré localement
-- Node.js 18+ installé
-- Connaissances Docker (cours prérequis)
+**Voir** : [Documentation complète TaskFlow](./fil-rouge-taskflow/README.md)
+
+---
 
 ## Progression
 
-Les TPs sont conçus pour être réalisés dans l'ordre. Chaque TP construit sur les acquis du précédent.
+| Jour | Module | Objectif TP | Livrable |
+|------|--------|-------------|----------|
+| **1** | Introduction CI | Premier workflow | `ci.yml` avec lint |
+| **2** | Configuration | Jobs avancés | Matrix + secrets + triggers |
+| **3** | Tests | Qualité de code | Tests + coverage ≥ 70% |
+| **4** | Branches | Versioning | Branch protection + release v1.0.0 |
+| **5** | Déploiement | Pipeline complet | Docker + ghcr.io + GitHub Pages |
 
-## Évaluation
+---
 
-Les TPs représentent 100% de la note de contrôle continu.
+## Point de départ
 
-**Critères d'évaluation** :
-- Fonctionnalité du workflow (40%)
-- Respect des bonnes pratiques (30%)
-- Qualité du code YAML (20%)
-- Documentation (10%)
+Les étudiants **forkent** le repository starter au Jour 1 :
+
+```
+gh repo fork foreach-academy/taskflow-starter --clone
+```
+
+Le starter contient :
+- Application TaskFlow fonctionnelle (sans CI)
+- Structure de base (src/, tests/, package.json)
+- Dockerfile vide (à compléter J5)
+- README avec instructions
+
+---
+
+## Évaluation finale (100 points)
+
+L'évaluation se fait sur l'état du repository à la fin du Jour 5 :
+
+| Critère | Points | Comment vérifier |
+|---------|--------|------------------|
+| Workflow CI passe (badge vert) | 20 | Actions tab |
+| Tests passent, coverage ≥ 70% | 20 | Artifact coverage |
+| Branch protection sur main | 15 | Settings > Branches |
+| Au moins 1 release (v1.x.x) | 15 | Releases tab |
+| Image Docker sur ghcr.io | 15 | Packages tab |
+| Site déployé sur GitHub Pages | 15 | URL accessible |
+| **Total** | **100** | |
+
+**Validation** : ≥ 50 points
+
+---
 
 ## Ressources
 
+- [Starter TaskFlow](./fil-rouge-taskflow/starter/)
+- [Solution complète](./fil-rouge-taskflow/solution/) *(accès formateur)*
 - [Cheatsheet GitHub Actions](../ressources/cheatsheet.md)
-- [Documentation officielle](https://docs.github.com/en/actions)
-- [Comparaison Jenkins → GitHub Actions](https://docs.github.com/en/actions/migrating-to-github-actions/migrating-from-jenkins-to-github-actions)
+- [Guide Docker + ghcr.io](../ressources/docker-ghcr.md)
+
+---
+
+## Capitalisation
+
+Ce projet réutilise les compétences du cours **Virtualisation et Containerisation avec Docker** :
+- Dockerfile multi-stage
+- .dockerignore
+- Build et push d'images
+
+*Formation CI/CD - ForEach Academy*
