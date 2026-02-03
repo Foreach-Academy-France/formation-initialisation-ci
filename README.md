@@ -27,168 +27,102 @@ Ce cours vise à fournir aux étudiants les compétences nécessaires pour compr
 
 ---
 
+## Organisation
+
+**Structure de chaque journée :**
+- **Matin (9h-12h15)** : Théorie et démonstrations
+- **Après-midi (13h15-17h)** : Travaux pratiques
+
+**1 module = 1 journée = 1 TP**
+
+---
+
 ## Programme de formation détaillé
 
 ### Module 1 : Introduction au Continuous Integration (CI)
 
-**Jour 1 - Fondamentaux (7h)**
+**Jour 1 (7h)**
 
-| Horaire | Contenu | Durée |
-|---------|---------|-------|
-| 9h00-9h30 | Accueil et introduction | 30min |
-| 9h30-11h00 | **Principes et avantages du CI** | 1h30 |
-| | - Qu'est-ce que l'intégration continue ? | |
-| | - Historique : de l'intégration manuelle au CI/CD | |
-| | - Avantages : détection précoce, feedback rapide | |
-| 11h00-11h15 | Pause | 15min |
-| 11h15-12h15 | **Workflow et concepts CI** | 1h |
-| | - Pipeline, Job, Step, Artifact | |
-| | - Triggers et événements | |
-| | - Runners et environnements d'exécution | |
-| 12h15-13h15 | Pause déjeuner | 1h |
-| 13h15-15h00 | **Outils et technologies CI populaires** | 1h45 |
-| | - Panorama : Jenkins, Travis CI, CircleCI, GitLab CI | |
-| | - Focus GitHub Actions : avantages et écosystème | |
-| | - Démo : Interface GitHub Actions | |
-| 15h00-15h15 | Pause | 15min |
-| 15h15-17h00 | **TP1 : Premier workflow GitHub Actions** | 1h45 |
-| | - Création du premier workflow | |
-| | - Structure YAML et syntaxe de base | |
-| | - Comprendre les logs et le debugging | |
+| Horaire | Contenu |
+|---------|---------|
+| **MATIN - Théorie** | |
+| 9h00-9h30 | Accueil et introduction |
+| 9h30-11h00 | **Principes et avantages du CI** : Qu'est-ce que CI/CD ? Historique, avantages |
+| 11h15-12h15 | **Workflow et concepts** : Pipeline, Job, Step, Artifact, Triggers, Runners |
+| **APRÈS-MIDI - Pratique** | |
+| 13h15-15h00 | **Outils CI populaires** : Jenkins, Travis, CircleCI, GitLab CI, GitHub Actions |
+| 15h15-17h00 | **TP1 : Premier workflow GitHub Actions** |
 
-**Slides**: [Jour 1 - Introduction CI](./slides/jour1-introduction-ci.md)
-**TP1**: [Premier workflow](./tp/tp1-premier-workflow/)
+**Slides**: [Jour 1](./slides/jour1-introduction-ci.md) | **TP1**: [Premier workflow](./tp/tp1-premier-workflow/)
 
 ---
 
 ### Module 2 : Configuration avancée du système CI
 
-**Jour 2 - Configuration (7h)**
+**Jour 2 (7h)**
 
-| Horaire | Contenu | Durée |
-|---------|---------|-------|
-| 9h00-10h30 | **Gestion des configurations** | 1h30 |
-| | - Structure des fichiers workflow | |
-| | - Variables et contextes GitHub Actions | |
-| | - Secrets et données sensibles | |
-| 10h30-10h45 | Pause | 15min |
-| 10h45-12h15 | **Création de projets CI et jobs de build** | 1h30 |
-| | - Jobs multiples et parallélisation | |
-| | - Matrix builds (multi-versions, multi-OS) | |
-| | - Dépendances entre jobs (needs) | |
-| 12h15-13h15 | Pause déjeuner | 1h |
-| 13h15-15h00 | **Déclencheurs et paramètres** | 1h45 |
-| | - Triggers : push, pull_request, schedule | |
-| | - workflow_dispatch (déclenchement manuel) | |
-| | - Filtres sur branches et paths | |
-| | - Conditions d'exécution (if) | |
-| 15h00-15h15 | Pause | 15min |
-| 15h15-17h00 | **TP2 : Configuration avancée** | 1h45 |
-| | - Projet CI avec jobs de build multiples | |
-| | - Matrix de versions Node.js | |
-| | - Déclencheurs et conditions | |
+| Horaire | Contenu |
+|---------|---------|
+| **MATIN - Théorie** | |
+| 9h00-10h30 | **Gestion des configurations** : Structure workflow, variables, contextes, secrets |
+| 10h45-12h15 | **Jobs de build** : Jobs multiples, parallélisation, matrix builds, dépendances |
+| **APRÈS-MIDI - Pratique** | |
+| 13h15-15h00 | **Déclencheurs et paramètres** : Triggers, workflow_dispatch, filtres, conditions |
+| 15h15-17h00 | **TP2 : Configuration avancée** |
 
-**Slides**: [Jour 2 - Configuration](./slides/jour2-configuration.md)
-**TP2**: [Configuration avancée](./tp/tp2-configuration-avancee/)
+**Slides**: [Jour 2](./slides/jour2-configuration.md) | **TP2**: [Configuration avancée](./tp/tp2-configuration-avancee/)
 
 ---
 
 ### Module 3 : Automatisation des tests dans le CI
 
-**Jour 3 - Tests (7h)**
+**Jour 3 (7h)**
 
-| Horaire | Contenu | Durée |
-|---------|---------|-------|
-| 9h00-10h30 | **Introduction aux tests automatisés** | 1h30 |
-| | - Types de tests : unitaires, intégration, e2e | |
-| | - Pyramide des tests | |
-| | - Frameworks de tests (Jest, Vitest, Cypress) | |
-| 10h30-10h45 | Pause | 15min |
-| 10h45-12h15 | **Intégration des frameworks de tests** | 1h30 |
-| | - Configuration des tests dans le CI | |
-| | - Exécution parallèle des tests | |
-| | - Gestion des timeouts et retries | |
-| 12h15-13h15 | Pause déjeuner | 1h |
-| 13h15-15h00 | **Tests unitaires et fonctionnels** | 1h45 |
-| | - Code coverage et rapports | |
-| | - Upload des artifacts de test | |
-| | - Intégration avec Codecov/Coveralls | |
-| | - Linting et qualité de code | |
-| 15h00-15h15 | Pause | 15min |
-| 15h15-17h00 | **TP3 : Tests automatisés** | 1h45 |
-| | - Configuration tests unitaires | |
-| | - Génération de rapports de coverage | |
-| | - Linting automatique | |
+| Horaire | Contenu |
+|---------|---------|
+| **MATIN - Théorie** | |
+| 9h00-10h30 | **Tests automatisés** : Types de tests, pyramide, frameworks (Jest, Vitest, Cypress) |
+| 10h45-12h15 | **Intégration dans CI** : Configuration, exécution parallèle, timeouts, retries |
+| **APRÈS-MIDI - Pratique** | |
+| 13h15-15h00 | **Coverage et qualité** : Rapports, artifacts, Codecov, linting |
+| 15h15-17h00 | **TP3 : Tests automatisés** |
 
-**Slides**: [Jour 3 - Tests](./slides/jour3-tests.md)
-**TP3**: [Tests automatisés](./tp/tp3-tests-automatises/)
+**Slides**: [Jour 3](./slides/jour3-tests.md) | **TP3**: [Tests automatisés](./tp/tp3-tests-automatises/)
 
 ---
 
 ### Module 4 : Gestion des branches et des versions
 
-**Jour 4 - Branches et versions (7h)**
+**Jour 4 (7h)**
 
-| Horaire | Contenu | Durée |
-|---------|---------|-------|
-| 9h00-10h30 | **Stratégies de gestion des branches** | 1h30 |
-| | - Git Flow : feature, develop, release, hotfix | |
-| | - GitHub Flow : simplicité et déploiement continu | |
-| | - Trunk-based development | |
-| 10h30-10h45 | Pause | 15min |
-| 10h45-12h15 | **Résolution des conflits et CI** | 1h30 |
-| | - Pull requests et code review | |
-| | - Branch protection rules | |
-| | - Status checks obligatoires | |
-| | - Merge strategies (merge, squash, rebase) | |
-| 12h15-13h15 | Pause déjeuner | 1h |
-| 13h15-15h00 | **Gestion des versions et tags** | 1h45 |
-| | - Semantic versioning (SemVer) | |
-| | - Tags Git et releases GitHub | |
-| | - Changelog automatique | |
-| | - Actions de release automatique | |
-| 15h00-15h15 | Pause | 15min |
-| 15h15-17h00 | **TP4 : Branches et versions** | 1h45 |
-| | - Mise en place Git Flow | |
-| | - Branch protection et status checks | |
-| | - Release automatique avec tags | |
+| Horaire | Contenu |
+|---------|---------|
+| **MATIN - Théorie** | |
+| 9h00-10h30 | **Stratégies de branches** : Git Flow, GitHub Flow, Trunk-based development |
+| 10h45-12h15 | **CI et branches** : Pull requests, code review, branch protection, merge strategies |
+| **APRÈS-MIDI - Pratique** | |
+| 13h15-15h00 | **Versions et tags** : SemVer, releases GitHub, changelog automatique |
+| 15h15-17h00 | **TP4 : Branches et versions** |
 
-**Slides**: [Jour 4 - Branches](./slides/jour4-branches-versions.md)
-**TP4**: [Branches et versions](./tp/tp4-branches-versions/)
+**Slides**: [Jour 4](./slides/jour4-branches-versions.md) | **TP4**: [Branches et versions](./tp/tp4-branches-versions/)
 
 ---
 
 ### Module 5 : Déploiement et amélioration continue
 
-**Jour 5 - Déploiement (7h)**
+**Jour 5 (7h)**
 
-| Horaire | Contenu | Durée |
-|---------|---------|-------|
-| 9h00-10h30 | **Stratégies de déploiement continu (CD)** | 1h30 |
-| | - Continuous Delivery vs Continuous Deployment | |
-| | - Environnements : staging, production | |
-| | - Blue/Green, Rolling, Canary deployments | |
-| 10h30-10h45 | Pause | 15min |
-| 10h45-12h15 | **Automatisation des déploiements** | 1h30 |
-| | - Déploiement avec Docker | |
-| | - GitHub Environments et protection rules | |
-| | - Déploiement sur GitHub Pages, Vercel, Netlify | |
-| | - Introduction à Ansible pour le déploiement | |
-| 12h15-13h15 | Pause déjeuner | 1h |
-| 13h15-15h30 | **TP5 : Pipeline de déploiement continu** | 2h15 |
-| | - Pipeline complet : Test → Build → Deploy | |
-| | - Déploiement multi-environnements | |
-| | - Rollback et monitoring | |
-| 15h30-15h45 | Pause | 15min |
-| 15h45-16h30 | **Amélioration continue et rétroaction** | 45min |
-| | - Métriques CI/CD | |
-| | - Optimisation des pipelines | |
-| | - Bonnes pratiques et patterns | |
-| 16h30-17h00 | **QCM Final** | 30min |
+| Horaire | Contenu |
+|---------|---------|
+| **MATIN - Théorie** | |
+| 9h00-10h30 | **Stratégies CD** : Delivery vs Deployment, environnements, Blue/Green, Canary |
+| 10h45-12h15 | **Automatisation** : Docker, GitHub Environments, Pages/Vercel/Netlify, Ansible |
+| **APRÈS-MIDI - Pratique** | |
+| 13h15-15h30 | **TP5 : Pipeline de déploiement continu** |
+| 15h45-16h30 | **Amélioration continue** : Métriques, optimisation, bonnes pratiques |
+| 16h30-17h00 | **QCM Final** |
 
-**Slides**: [Jour 5 - Déploiement](./slides/jour5-deploiement.md)
-**TP5**: [Pipeline CD](./tp/tp5-pipeline-deploiement/)
-**Évaluation**: [QCM + Grille](./evaluation/)
+**Slides**: [Jour 5](./slides/jour5-deploiement.md) | **TP5**: [Pipeline CD](./tp/tp5-pipeline-deploiement/) | **Évaluation**: [QCM](./evaluation/)
 
 ---
 
