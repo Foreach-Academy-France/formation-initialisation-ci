@@ -1,37 +1,77 @@
 ---
 marp: true
-theme: default
+theme: uncover
 paginate: true
-header: "**Module 1** - Introduction au CI"
-footer: "Formation CI/CD - ForEach Academy"
+footer: M2 ESTD - Initialisation CI avec GitHub Actions | ForEach Academy
 style: |
   section {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-size: 20px;
+    padding: 40px 50px;
   }
   h1 {
-    color: #667eea;
+    font-size: 36px;
+    color: #2563eb;
+    margin: 0 0 15px 0;
   }
   h2 {
-    color: #764ba2;
+    font-size: 28px;
+    color: #1e40af;
+    margin: 0 0 12px 0;
+  }
+  h3 {
+    font-size: 24px;
+    color: #3b82f6;
+    margin: 0 0 10px 0;
   }
   code {
-    background: #f1f5f9;
-    padding: 2px 8px;
+    font-size: 18px;
+    background: #f3f4f6;
+    padding: 1px 4px;
     border-radius: 4px;
   }
+  .highlight {
+    background: linear-gradient(120deg, #3b82f6 0%, #2563eb 100%);
+    padding: 2px 6px;
+    border-radius: 4px;
+    color: white;
+    font-weight: bold;
+  }
+  table {
+    font-size: 16px;
+  }
+  blockquote {
+    border-left: 4px solid #3b82f6;
+    padding-left: 15px;
+    font-style: italic;
+    color: #4b5563;
+    margin: 10px 0;
+    font-size: 18px;
+  }
+  ul {
+    margin: 10px 0;
+    padding-left: 25px;
+  }
+  li {
+    margin-bottom: 5px;
+    line-height: 1.3;
+  }
   pre {
-    background: #1e293b;
+    font-size: 15px;
+    padding: 20px;
+    margin: 15px 0;
+    background: #1e1e1e !important;
     border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  pre code {
+    background: transparent !important;
+    color: #d4d4d4;
+    font-size: 15px;
   }
   .columns {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 1rem;
-  }
-  blockquote {
-    border-left: 4px solid #667eea;
-    padding-left: 1rem;
-    color: #64748b;
   }
 ---
 
