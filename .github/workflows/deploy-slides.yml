@@ -286,6 +286,7 @@ jobs:
                               <div class="links">
                                   <a href="slides/jour1-introduction-ci.html" class="btn">🖥️ Slides HTML</a>
                                   <a href="pdf/jour1-introduction-ci.pdf" class="btn btn-pdf">📄 PDF</a>
+                                  <a href="tp/jour1-premier-workflow.md" class="btn btn-secondary">🛠️ TP</a>
                               </div>
                           </div>
                       </div>
