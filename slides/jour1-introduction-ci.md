@@ -118,7 +118,7 @@ ForEach Academy
 
 ## Le développement "à l'ancienne"
 
-```mermaid
+<div class="mermaid">
 flowchart TB
     subgraph A[" 👨‍💻 Développeur A "]
         A1[Code pendant 2 semaines]
@@ -129,7 +129,7 @@ flowchart TB
     A1 --> M[🔀 MERGE]
     B1 --> M
     M --> C["💥 CONFLITS<br/>💥 BUGS<br/>💥 STRESS"]
-```
+</div>
 
 ---
 
