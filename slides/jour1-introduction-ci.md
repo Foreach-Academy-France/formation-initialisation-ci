@@ -242,23 +242,23 @@ Plus un bug est détecté tard, plus il coûte cher à corriger.
 # CI vs CD vs CD
 
 <div class="mermaid">
-flowchart TB
-    subgraph CI["🔄 Continuous Integration"]
-        CI1["Code → Build → Test"]
-        CI2["Le code est-il correct ?"]
+flowchart LR
+    subgraph CI["🔄 CI"]
+        CI1["Build + Test"]
     end
-    subgraph CDel["📦 Continuous Delivery"]
-        CDel1["... → Package → Staging"]
-        CDel2["Le code est-il livrable ?"]
-        CDel3["(deploy manuel en prod)"]
+    subgraph CDel["📦 Delivery"]
+        CDel1["→ Staging"]
     end
-    subgraph CDep["🚀 Continuous Deployment"]
-        CDep1["... → Deploy Production"]
-        CDep2["Tout est automatique"]
+    subgraph CDep["🚀 Deployment"]
+        CDep1["→ Production"]
     end
-    CI --> CDel
-    CDel --> CDep
+    CI --> CDel --> CDep
 </div>
+
+| | CI | Delivery | Deployment |
+|--|--|--|--|
+| **Question** | Code correct ? | Code livrable ? | Tout auto ? |
+| **Deploy prod** | ❌ | Manuel | ✅ Auto |
 
 ---
 
