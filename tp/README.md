@@ -21,13 +21,13 @@ Application web de gestion de tâches (todo list avancée).
 
 ## Progression
 
-| Jour | Module | Objectif TP | Livrable |
-|------|--------|-------------|----------|
-| **1** | Introduction CI | Premier workflow | `ci.yml` avec lint |
-| **2** | Configuration | Jobs avancés | Matrix + secrets + triggers |
-| **3** | Tests | Qualité de code | Tests + coverage ≥ 70% |
-| **4** | Branches | Versioning | Branch protection + release v1.0.0 |
-| **5** | Déploiement | Pipeline complet | Docker + ghcr.io + GitHub Pages |
+| Jour | Module | Objectif TP | Livrable | Instructions |
+|------|--------|-------------|----------|--------------|
+| **1** | Introduction CI | Jenkins + GitHub Actions | Comparer CI self-hosted vs cloud | [TP Jour 1](./jour1-premier-workflow.md) |
+| **2** | Configuration | Jobs avancés | Matrix + secrets + triggers | *À venir* |
+| **3** | Tests | Qualité de code | Tests + coverage ≥ 70% | *À venir* |
+| **4** | Branches | Versioning | Branch protection + release v1.0.0 | *À venir* |
+| **5** | Déploiement | Pipeline complet | Docker + ghcr.io + GitHub Pages | *À venir* |
 
 ---
 
