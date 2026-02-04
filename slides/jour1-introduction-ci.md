@@ -159,15 +159,20 @@ flowchart TB
 
 # Le principe fondamental
 
-```
-        Code        Push        CI Server       Feedback
-          |          |             |               |
-Dev A --> commit --> push --> [BUILD + TEST] --> ✅ OK (2 min)
-          |          |             |               |
-Dev B --> commit --> push --> [BUILD + TEST] --> ❌ FAIL (2 min)
-          |          |             |               |
-          |          |             |          Fix immédiat !
-```
+<div class="mermaid">
+flowchart LR
+    subgraph DevA["👨‍💻 Dev A"]
+        A1[commit] --> A2[push]
+    end
+    subgraph DevB["👩‍💻 Dev B"]
+        B1[commit] --> B2[push]
+    end
+    A2 --> CI1["🔨 BUILD + TEST"]
+    B2 --> CI2["🔨 BUILD + TEST"]
+    CI1 --> OK["✅ OK<br/>2 min"]
+    CI2 --> FAIL["❌ FAIL<br/>2 min"]
+    FAIL --> FIX["🔧 Fix immédiat !"]
+</div>
 
 ## La règle d'or
 > **Intégrer souvent, détecter vite, corriger immédiatement**
