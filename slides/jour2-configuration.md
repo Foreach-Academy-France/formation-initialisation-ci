@@ -398,26 +398,34 @@ jobs:
 
 # Exécution parallèle vs séquentielle
 
-```
-Sans "needs"                    Avec "needs"
-─────────────                   ─────────────
+<div class="columns">
+<div>
 
-┌──────┐ ┌──────┐ ┌───────┐    ┌──────┐
-│ lint │ │ test │ │ build │    │ lint │
-└──────┘ └──────┘ └───────┘    └──┬───┘
-    │        │         │          │
-    ▼        ▼         ▼          ▼
-   Fin      Fin       Fin      ┌──────┐
-                               │ test │
-  (parallèle ~2 min)           └──┬───┘
-                                  │
-                                  ▼
-                               ┌───────┐
-                               │ build │
-                               └───────┘
+## ⚡ Sans `needs` (parallèle)
 
-                               (séquentiel ~6 min)
-```
+<div class="mermaid">
+flowchart TB
+    L[lint] --> F1[Fin]
+    T[test] --> F2[Fin]
+    B[build] --> F3[Fin]
+</div>
+
+**Durée : ~2 min**
+
+</div>
+<div>
+
+## 🔗 Avec `needs` (séquentiel)
+
+<div class="mermaid">
+flowchart TB
+    L[lint] --> T[test] --> B[build] --> F[Fin]
+</div>
+
+**Durée : ~6 min**
+
+</div>
+</div>
 
 ---
 
