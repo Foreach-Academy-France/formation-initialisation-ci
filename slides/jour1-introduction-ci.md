@@ -2,7 +2,8 @@
 marp: true
 theme: uncover
 paginate: true
-footer: M2 ESTD - Initialisation CI avec GitHub Actions | ForEach Academy
+header: "**Module 1** - Introduction au CI"
+footer: "M2 ESTD - Initialisation CI avec GitHub Actions | ForEach Academy"
 style: |
   section {
     font-size: 20px;
@@ -10,56 +11,30 @@ style: |
   }
   h1 {
     font-size: 36px;
-    color: #2563eb;
+    color: #667eea;
     margin: 0 0 15px 0;
   }
   h2 {
     font-size: 28px;
-    color: #1e40af;
+    color: #764ba2;
     margin: 0 0 12px 0;
   }
   h3 {
     font-size: 24px;
-    color: #3b82f6;
+    color: #667eea;
     margin: 0 0 10px 0;
   }
   code {
     font-size: 18px;
-    background: #f3f4f6;
-    padding: 1px 4px;
+    background: #f1f5f9;
+    padding: 2px 8px;
     border-radius: 4px;
-  }
-  .highlight {
-    background: linear-gradient(120deg, #3b82f6 0%, #2563eb 100%);
-    padding: 2px 6px;
-    border-radius: 4px;
-    color: white;
-    font-weight: bold;
-  }
-  table {
-    font-size: 16px;
-  }
-  blockquote {
-    border-left: 4px solid #3b82f6;
-    padding-left: 15px;
-    font-style: italic;
-    color: #4b5563;
-    margin: 10px 0;
-    font-size: 18px;
-  }
-  ul {
-    margin: 10px 0;
-    padding-left: 25px;
-  }
-  li {
-    margin-bottom: 5px;
-    line-height: 1.3;
   }
   pre {
     font-size: 15px;
     padding: 20px;
     margin: 15px 0;
-    background: #1e1e1e !important;
+    background: #1e293b !important;
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   }
@@ -73,7 +48,30 @@ style: |
     grid-template-columns: 1fr 1fr;
     gap: 1rem;
   }
+  blockquote {
+    border-left: 4px solid #667eea;
+    padding-left: 1rem;
+    font-style: italic;
+    color: #64748b;
+  }
+  table {
+    font-size: 16px;
+  }
+  ul {
+    margin: 10px 0;
+    padding-left: 25px;
+  }
+  li {
+    margin-bottom: 5px;
+    line-height: 1.3;
+  }
 ---
+
+<!-- Mermaid support -->
+<script type="module">
+  import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+  mermaid.initialize({ startOnLoad: true, theme: 'default' });
+</script>
 
 # Module 1
 ## Introduction au Continuous Integration
@@ -120,20 +118,17 @@ ForEach Academy
 
 ## Le développement "à l'ancienne"
 
-```
-Développeur A                    Développeur B
-     |                                |
-   code                             code
-     |                                |
-     v                                v
-[2 semaines plus tard]    [2 semaines plus tard]
-     |                                |
-     +--------> MERGE <---------------+
-                  |
-                  v
-            💥 CONFLITS 💥
-            💥 BUGS 💥
-            💥 STRESS 💥
+```mermaid
+flowchart TB
+    subgraph A[" 👨‍💻 Développeur A "]
+        A1[Code pendant 2 semaines]
+    end
+    subgraph B[" 👩‍💻 Développeur B "]
+        B1[Code pendant 2 semaines]
+    end
+    A1 --> M[🔀 MERGE]
+    B1 --> M
+    M --> C["💥 CONFLITS<br/>💥 BUGS<br/>💥 STRESS"]
 ```
 
 ---
