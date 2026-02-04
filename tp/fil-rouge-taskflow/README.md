@@ -152,8 +152,18 @@ L'évaluation porte sur l'état final du repository :
 | Déploiement GitHub Pages | 15 | Site accessible |
 | **Total** | **100** | |
 
+## Documents TP par jour
+
+| Jour | Document | Durée |
+|------|----------|-------|
+| 1 | [Premier workflow CI](./jour1-premier-workflow.md) | 2h |
+| 2 | [Configuration avancée](./jour2-configuration-avancee.md) | 2h |
+| 3 | [Tests et qualité](./jour3-tests-qualite.md) | 2h |
+| 4 | [Branches et releases](./jour4-branches-releases.md) | 2h |
+| 5 | [Déploiement complet](./jour5-deploiement-complet.md) | 2h30 |
+
 ## Ressources
 
-- [Starter repository](./starter/) - Point de départ Jour 1
+- [Starter repository](https://github.com/Foreach-Academy-France/taskflow-starter) - Point de départ Jour 1
 - [Cheatsheet GitHub Actions](../../ressources/cheatsheet.md)
 - [GitHub Container Registry docs](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry)
