@@ -3,9 +3,6 @@ name: Deploy Slides to GitHub Pages
 on:
   push:
     branches: [main]
-    paths:
-      - 'slides/**'
-      - 'package.json'
   workflow_dispatch:
 
 permissions:
@@ -19,21 +16,393 @@ concurrency:
 
 jobs:
   build:
+    name: Build Slides
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: Checkout code
         uses: actions/checkout@v4
 
       - name: Setup Bun
         uses: oven-sh/setup-bun@v2
-        with:
-          bun-version: latest
 
-      - name: Install dependencies
-        run: bun install
+      - name: Install Marp CLI
+        run: bun add -g @marp-team/marp-cli
 
-      - name: Build slides
-        run: bun run build
+      - name: Create output directories
+        run: |
+          mkdir -p public/slides
+          mkdir -p public/pdf
+
+      - name: Build HTML slides
+        run: |
+          for slide in slides/*.md; do
+            echo "Building $(basename $slide)..."
+            marp "$slide" --html --allow-local-files -o "public/slides/$(basename $slide .md).html"
+          done
+
+      - name: Build PDF slides
+        run: |
+          for slide in slides/*.md; do
+            echo "Building PDF for $(basename $slide)..."
+            marp "$slide" --html --allow-local-files --pdf -o "public/pdf/$(basename $slide .md).pdf"
+          done
+
+      - name: Copy additional files
+        run: |
+          # Copy TP, evaluation, and ressources folders if they exist
+          [ -d tp ] && cp -r tp public/
+          [ -d evaluation ] && cp -r evaluation public/
+          [ -d ressources ] && cp -r ressources public/
+
+          # Copy README
+          cp README.md public/
+
+      - name: Create index.html
+        run: |
+          cat > public/index.html << 'EOF'
+          <!DOCTYPE html>
+          <html lang="fr">
+          <head>
+              <meta charset="UTF-8">
+              <meta name="viewport" content="width=device-width, initial-scale=1.0">
+              <title>Formation CI/CD - GitHub Actions | ForEach Academy</title>
+              <style>
+                  * {
+                      margin: 0;
+                      padding: 0;
+                      box-sizing: border-box;
+                  }
+                  body {
+                      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+                      line-height: 1.6;
+                      color: #333;
+                      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+                      min-height: 100vh;
+                      padding: 2rem;
+                  }
+                  .container {
+                      max-width: 1200px;
+                      margin: 0 auto;
+                      background: white;
+                      border-radius: 20px;
+                      padding: 3rem;
+                      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+                  }
+                  header {
+                      text-align: center;
+                      margin-bottom: 3rem;
+                      padding-bottom: 2rem;
+                      border-bottom: 3px solid #00d4ff;
+                  }
+                  h1 {
+                      color: #1a1a2e;
+                      font-size: 2.5rem;
+                      margin-bottom: 0.5rem;
+                  }
+                  .icon {
+                      font-size: 3rem;
+                      margin-bottom: 1rem;
+                  }
+                  .subtitle {
+                      color: #666;
+                      font-size: 1.2rem;
+                  }
+                  .info {
+                      background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+                      padding: 1.5rem;
+                      border-radius: 10px;
+                      margin: 2rem 0;
+                      border-left: 4px solid #00d4ff;
+                  }
+                  .info p {
+                      margin: 0.5rem 0;
+                  }
+                  .section {
+                      margin: 2rem 0;
+                  }
+                  .section h2 {
+                      color: #1a1a2e;
+                      margin-bottom: 1rem;
+                      font-size: 1.8rem;
+                  }
+                  .grid {
+                      display: grid;
+                      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+                      gap: 1.5rem;
+                      margin-top: 1rem;
+                  }
+                  .card {
+                      background: #fff;
+                      border: 2px solid #e0e0e0;
+                      border-radius: 10px;
+                      padding: 1.5rem;
+                      transition: all 0.3s ease;
+                  }
+                  .card:hover {
+                      border-color: #00d4ff;
+                      transform: translateY(-5px);
+                      box-shadow: 0 10px 30px rgba(0, 212, 255, 0.2);
+                  }
+                  .card h3 {
+                      color: #1a1a2e;
+                      margin-bottom: 0.5rem;
+                  }
+                  .card p {
+                      color: #666;
+                      font-size: 0.9rem;
+                      margin-bottom: 1rem;
+                  }
+                  .links {
+                      display: flex;
+                      gap: 0.5rem;
+                      flex-wrap: wrap;
+                  }
+                  .btn {
+                      display: inline-block;
+                      padding: 0.5rem 1rem;
+                      background: #1a1a2e;
+                      color: white;
+                      text-decoration: none;
+                      border-radius: 5px;
+                      font-size: 0.9rem;
+                      transition: background 0.3s ease;
+                  }
+                  .btn:hover {
+                      background: #00d4ff;
+                      color: #1a1a2e;
+                  }
+                  .btn-secondary {
+                      background: #48bb78;
+                  }
+                  .btn-secondary:hover {
+                      background: #38a169;
+                  }
+                  .btn-pdf {
+                      background: #e53e3e;
+                  }
+                  .btn-pdf:hover {
+                      background: #c53030;
+                  }
+                  .btn-disabled {
+                      background: #ccc;
+                      cursor: not-allowed;
+                      opacity: 0.6;
+                  }
+                  .btn-disabled:hover {
+                      background: #ccc;
+                      color: white;
+                  }
+                  footer {
+                      text-align: center;
+                      margin-top: 3rem;
+                      padding-top: 2rem;
+                      border-top: 2px solid #e0e0e0;
+                      color: #666;
+                  }
+                  .badge {
+                      display: inline-block;
+                      padding: 0.25rem 0.75rem;
+                      background: #00d4ff;
+                      color: #1a1a2e;
+                      border-radius: 20px;
+                      font-size: 0.8rem;
+                      margin-left: 0.5rem;
+                      font-weight: bold;
+                  }
+                  .badge-wip {
+                      background: #ffc107;
+                      color: #333;
+                  }
+                  .day-separator {
+                      background: linear-gradient(90deg, #1a1a2e 0%, #16213e 100%);
+                      color: white;
+                      padding: 1rem;
+                      border-radius: 10px;
+                      margin: 2rem 0;
+                      text-align: center;
+                      font-size: 1.3rem;
+                      font-weight: bold;
+                  }
+                  .project-highlight {
+                      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+                      color: white;
+                      padding: 2rem;
+                      border-radius: 15px;
+                      margin: 2rem 0;
+                  }
+                  .project-highlight h3 {
+                      color: #00d4ff;
+                      margin-bottom: 1rem;
+                  }
+                  .project-highlight p {
+                      color: #ccc;
+                  }
+                  .project-highlight .stack {
+                      margin-top: 1rem;
+                      display: flex;
+                      gap: 0.5rem;
+                      flex-wrap: wrap;
+                  }
+                  .project-highlight .stack span {
+                      background: rgba(0, 212, 255, 0.2);
+                      padding: 0.3rem 0.8rem;
+                      border-radius: 5px;
+                      font-size: 0.85rem;
+                      border: 1px solid #00d4ff;
+                  }
+              </style>
+          </head>
+          <body>
+              <div class="container">
+                  <header>
+                      <div class="icon">⚡</div>
+                      <h1>DevOps - Initialisation CI</h1>
+                      <p class="subtitle">Formation GitHub Actions | ForEach Academy - M2 ESTD Architecte Web</p>
+                  </header>
+
+                  <div class="info">
+                      <p><strong>📅 Durée:</strong> 5 jours (35 heures)</p>
+                      <p><strong>👨‍🏫 Formateur:</strong> Fabrice Claeys</p>
+                      <p><strong>📧 Contact:</strong> fabrice.claeys@groupe-bao.fr</p>
+                      <p><strong>🎯 Objectif:</strong> Maîtriser l'intégration continue avec GitHub Actions</p>
+                      <p><strong>📋 Prérequis:</strong> Admin système et réseaux, Docker</p>
+                  </div>
+
+                  <div class="project-highlight">
+                      <h3>🚀 Projet Fil Rouge : TaskFlow</h3>
+                      <p>Application de gestion de tâches enrichie progressivement sur 5 jours</p>
+                      <div class="stack">
+                          <span>Vanilla JS</span>
+                          <span>Vite</span>
+                          <span>Vitest</span>
+                          <span>Docker</span>
+                          <span>GitHub Pages</span>
+                          <span>ghcr.io</span>
+                      </div>
+                  </div>
+
+                  <div class="section">
+                      <div class="day-separator">📅 Jour 1 - Introduction au CI</div>
+                      <div class="grid">
+                          <div class="card">
+                              <h3>Module 1: Introduction CI <span class="badge">Disponible</span></h3>
+                              <p>Principes CI/CD • Workflow et concepts • Outils populaires • Premier workflow</p>
+                              <div class="links">
+                                  <a href="slides/jour1-introduction-ci.html" class="btn">🖥️ Slides HTML</a>
+                                  <a href="pdf/jour1-introduction-ci.pdf" class="btn btn-pdf">📄 PDF</a>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+
+                  <div class="section">
+                      <div class="day-separator">📅 Jour 2 - Configuration avancée</div>
+                      <div class="grid">
+                          <div class="card">
+                              <h3>Module 2: Configuration <span class="badge badge-wip">En cours</span></h3>
+                              <p>Variables & secrets • Jobs multiples • Matrix builds • Triggers avancés</p>
+                              <div class="links">
+                                  <a href="#" class="btn btn-disabled">🖥️ Bientôt</a>
+                                  <a href="#" class="btn btn-disabled">📄 Bientôt</a>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+
+                  <div class="section">
+                      <div class="day-separator">📅 Jour 3 - Tests automatisés</div>
+                      <div class="grid">
+                          <div class="card">
+                              <h3>Module 3: Tests <span class="badge badge-wip">En cours</span></h3>
+                              <p>Frameworks de test • Vitest • Coverage • Artifacts • Qualité de code</p>
+                              <div class="links">
+                                  <a href="#" class="btn btn-disabled">🖥️ Bientôt</a>
+                                  <a href="#" class="btn btn-disabled">📄 Bientôt</a>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+
+                  <div class="section">
+                      <div class="day-separator">📅 Jour 4 - Branches et versions</div>
+                      <div class="grid">
+                          <div class="card">
+                              <h3>Module 4: Branches & Versions <span class="badge badge-wip">En cours</span></h3>
+                              <p>Git Flow • Pull requests • Branch protection • SemVer • Releases</p>
+                              <div class="links">
+                                  <a href="#" class="btn btn-disabled">🖥️ Bientôt</a>
+                                  <a href="#" class="btn btn-disabled">📄 Bientôt</a>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+
+                  <div class="section">
+                      <div class="day-separator">📅 Jour 5 - Déploiement continu</div>
+                      <div class="grid">
+                          <div class="card">
+                              <h3>Module 5: Déploiement <span class="badge badge-wip">En cours</span></h3>
+                              <p>CD stratégies • Docker & ghcr.io • GitHub Pages • QCM Final</p>
+                              <div class="links">
+                                  <a href="#" class="btn btn-disabled">🖥️ Bientôt</a>
+                                  <a href="#" class="btn btn-disabled">📄 Bientôt</a>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+
+                  <div class="section">
+                      <h2>📝 Évaluation</h2>
+                      <div class="grid">
+                          <div class="card">
+                              <h3>Projet TaskFlow (100%)</h3>
+                              <p>État final du repository - 100 points</p>
+                              <div class="links">
+                                  <a href="evaluation/grille-evaluation.md" class="btn">📊 Grille</a>
+                              </div>
+                          </div>
+                          <div class="card">
+                              <h3>QCM Final (100%)</h3>
+                              <p>30 questions - 45 minutes</p>
+                              <div class="links">
+                                  <a href="evaluation/qcm.md" class="btn">📋 QCM</a>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+
+                  <div class="section">
+                      <h2>📚 Ressources</h2>
+                      <div class="grid">
+                          <div class="card">
+                              <h3>📖 Documentation</h3>
+                              <p>Liens vers les ressources officielles</p>
+                              <div class="links">
+                                  <a href="https://docs.github.com/en/actions" class="btn" target="_blank">GitHub Actions</a>
+                                  <a href="ressources/cheatsheet.md" class="btn btn-secondary">Cheatsheet</a>
+                              </div>
+                          </div>
+                          <div class="card">
+                              <h3>🚀 Projet Starter</h3>
+                              <p>Fork ce repo pour commencer le TP fil rouge</p>
+                              <div class="links">
+                                  <a href="https://github.com/Foreach-Academy-France/taskflow-starter" class="btn" target="_blank">TaskFlow Starter</a>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+
+                  <footer>
+                      <p><strong>ForEach Academy / IEF2I - Digital School of Paris</strong></p>
+                      <p>Référent: Michael MAVRODIS | michaelmavrodis@formateur.ief2i.fr</p>
+                      <p style="margin-top: 1rem; font-size: 0.9rem; color: #999;">
+                          ⚡ Site généré automatiquement avec GitHub Actions et Marp CLI
+                      </p>
+                  </footer>
+              </div>
+          </body>
+          </html>
+          EOF
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
@@ -41,9 +410,10 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: './dist'
+          path: './public'
 
   deploy:
+    name: Deploy to GitHub Pages
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
