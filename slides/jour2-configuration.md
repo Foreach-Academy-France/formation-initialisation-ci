@@ -460,23 +460,12 @@ jobs:
 
 # Visualisation des dépendances
 
-```
-        ┌──────┐     ┌──────┐
-        │ lint │     │ test │
-        └──┬───┘     └──┬───┘
-           │            │
-           └─────┬──────┘
-                 │
-                 ▼
-            ┌─────────┐
-            │  build  │
-            └────┬────┘
-                 │
-                 ▼
-            ┌─────────┐
-            │ deploy  │
-            └─────────┘
-```
+<div class="mermaid">
+flowchart TB
+    L[lint] --> B[build]
+    T[test] --> B
+    B --> D[deploy]
+</div>
 
 **lint** et **test** en parallèle → **build** → **deploy**
 
@@ -1087,29 +1076,18 @@ jobs:
 
 # Workflow complet
 
-```
-┌──────┐
-│ lint │
-└──┬───┘
-   │
-   ▼
-┌──────────────────────────────────┐
-│           test (matrix)          │
-│  ┌────────┐┌────────┐┌────────┐  │
-│  │ Node18 ││ Node20 ││ Node22 │  │
-│  └────────┘└────────┘└────────┘  │
-└─────────────────┬────────────────┘
-                  │
-                  ▼
-             ┌─────────┐
-             │  build  │
-             └────┬────┘
-                  │ (if main)
-                  ▼
-             ┌─────────┐
-             │ deploy  │
-             └─────────┘
-```
+<div class="mermaid">
+flowchart TB
+    L[lint]
+    L --> T[test matrix]
+    T --> T18[Node 18]
+    T --> T20[Node 20]
+    T --> T22[Node 22]
+    T18 --> B[build]
+    T20 --> B
+    T22 --> B
+    B -->|if main| D[deploy]
+</div>
 
 ---
 
