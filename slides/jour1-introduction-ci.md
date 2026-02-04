@@ -241,28 +241,24 @@ Plus un bug est détecté tard, plus il coûte cher à corriger.
 
 # CI vs CD vs CD
 
-```
-┌─────────────────────────────────────────────────────────────────┐
-│                                                                 │
-│  ┌──────────────────┐                                          │
-│  │ Continuous       │  Code → Build → Test                     │
-│  │ Integration (CI) │  "Le code est-il correct ?"              │
-│  └──────────────────┘                                          │
-│           │                                                     │
-│           ▼                                                     │
-│  ┌──────────────────┐                                          │
-│  │ Continuous       │  ... → Package → Deploy to Staging       │
-│  │ Delivery         │  "Le code est-il livrable ?"             │
-│  └──────────────────┘  (déploiement manuel en prod)            │
-│           │                                                     │
-│           ▼                                                     │
-│  ┌──────────────────┐                                          │
-│  │ Continuous       │  ... → Deploy to Production              │
-│  │ Deployment       │  "Tout est automatique"                  │
-│  └──────────────────┘                                          │
-│                                                                 │
-└─────────────────────────────────────────────────────────────────┘
-```
+<div class="mermaid">
+flowchart TB
+    subgraph CI["🔄 Continuous Integration"]
+        CI1["Code → Build → Test"]
+        CI2["Le code est-il correct ?"]
+    end
+    subgraph CDel["📦 Continuous Delivery"]
+        CDel1["... → Package → Staging"]
+        CDel2["Le code est-il livrable ?"]
+        CDel3["(deploy manuel en prod)"]
+    end
+    subgraph CDep["🚀 Continuous Deployment"]
+        CDep1["... → Deploy Production"]
+        CDep2["Tout est automatique"]
+    end
+    CI --> CDel
+    CDel --> CDep
+</div>
 
 ---
 
