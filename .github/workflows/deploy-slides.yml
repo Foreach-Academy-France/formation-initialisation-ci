@@ -295,11 +295,11 @@ jobs:
                       <div class="day-separator">📅 Jour 2 - Configuration avancée</div>
                       <div class="grid">
                           <div class="card">
-                              <h3>Jour 2: Configuration <span class="badge badge-wip">En cours</span></h3>
+                              <h3>Jour 2: Configuration <span class="badge">Disponible</span></h3>
                               <p>Variables & secrets • Jobs multiples • Matrix builds • Triggers avancés</p>
                               <div class="links">
-                                  <a href="#" class="btn btn-disabled">🖥️ Bientôt</a>
-                                  <a href="#" class="btn btn-disabled">📄 Bientôt</a>
+                                  <a href="slides/jour2-configuration.html" class="btn">🖥️ Slides HTML</a>
+                                  <a href="pdf/jour2-configuration.pdf" class="btn btn-pdf">📄 PDF</a>
                               </div>
                           </div>
                       </div>
@@ -309,11 +309,11 @@ jobs:
                       <div class="day-separator">📅 Jour 3 - Tests automatisés</div>
                       <div class="grid">
                           <div class="card">
-                              <h3>Jour 3: Tests <span class="badge badge-wip">En cours</span></h3>
+                              <h3>Jour 3: Tests <span class="badge">Disponible</span></h3>
                               <p>Frameworks de test • Vitest • Coverage • Artifacts • Qualité de code</p>
                               <div class="links">
-                                  <a href="#" class="btn btn-disabled">🖥️ Bientôt</a>
-                                  <a href="#" class="btn btn-disabled">📄 Bientôt</a>
+                                  <a href="slides/jour3-tests.html" class="btn">🖥️ Slides HTML</a>
+                                  <a href="pdf/jour3-tests.pdf" class="btn btn-pdf">📄 PDF</a>
                               </div>
                           </div>
                       </div>
@@ -323,11 +323,11 @@ jobs:
                       <div class="day-separator">📅 Jour 4 - Branches et versions</div>
                       <div class="grid">
                           <div class="card">
-                              <h3>Jour 4: Branches & Versions <span class="badge badge-wip">En cours</span></h3>
+                              <h3>Jour 4: Branches & Versions <span class="badge">Disponible</span></h3>
                               <p>Git Flow • Pull requests • Branch protection • SemVer • Releases</p>
                               <div class="links">
-                                  <a href="#" class="btn btn-disabled">🖥️ Bientôt</a>
-                                  <a href="#" class="btn btn-disabled">📄 Bientôt</a>
+                                  <a href="slides/jour4-branches-versions.html" class="btn">🖥️ Slides HTML</a>
+                                  <a href="pdf/jour4-branches-versions.pdf" class="btn btn-pdf">📄 PDF</a>
                               </div>
                           </div>
                       </div>
@@ -337,11 +337,11 @@ jobs:
                       <div class="day-separator">📅 Jour 5 - Déploiement continu</div>
                       <div class="grid">
                           <div class="card">
-                              <h3>Jour 5: Déploiement <span class="badge badge-wip">En cours</span></h3>
+                              <h3>Jour 5: Déploiement <span class="badge">Disponible</span></h3>
                               <p>CD stratégies • Docker & ghcr.io • GitHub Pages • QCM Final</p>
                               <div class="links">
-                                  <a href="#" class="btn btn-disabled">🖥️ Bientôt</a>
-                                  <a href="#" class="btn btn-disabled">📄 Bientôt</a>
+                                  <a href="slides/jour5-deploiement.html" class="btn">🖥️ Slides HTML</a>
+                                  <a href="pdf/jour5-deploiement.pdf" class="btn btn-pdf">📄 PDF</a>
                               </div>
                           </div>
                       </div>
