@@ -121,10 +121,10 @@ ForEach Academy
 <div class="mermaid">
 flowchart TB
     subgraph A[" 👨‍💻 Développeur A "]
-        A1[Code pendant 2 semaines]
+        A1["Code seul<br/>2 semaines"]
     end
     subgraph B[" 👩‍💻 Développeur B "]
-        B1[Code pendant 2 semaines]
+        B1["Code seul<br/>2 semaines"]
     end
     A1 --> M[🔀 MERGE]
     B1 --> M
