@@ -47,6 +47,49 @@ jobs:
             marp "$slide" --html --allow-local-files --pdf -o "public/pdf/$(basename $slide .md).pdf"
           done
 
+      - name: Install Pandoc
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y pandoc texlive-xetex texlive-fonts-recommended fonts-noto-color-emoji
+
+      - name: Build TP PDFs
+        run: |
+          mkdir -p public/tp-pdf
+
+          # Generate PDF for each TP markdown file in tp/ directory
+          for tp_file in tp/*.md; do
+            if [ -f "$tp_file" ] && [ "$(basename $tp_file)" != "README.md" ]; then
+              tp_name=$(basename "$tp_file" .md)
+              echo "Generating PDF for $tp_name..."
+              pandoc "$tp_file" \
+                -o "public/tp-pdf/${tp_name}.pdf" \
+                --pdf-engine=xelatex \
+                -V geometry:margin=2cm \
+                -V documentclass=article \
+                -V fontsize=11pt \
+                -V mainfont="DejaVu Sans" \
+                --toc \
+                --highlight-style=tango
+            fi
+          done
+
+          # Generate PDF for TP directories with README.md
+          for tp_dir in tp/*/; do
+            if [ -f "$tp_dir/README.md" ]; then
+              tp_name=$(basename "$tp_dir")
+              echo "Generating PDF for $tp_name..."
+              pandoc "$tp_dir/README.md" \
+                -o "public/tp-pdf/${tp_name}.pdf" \
+                --pdf-engine=xelatex \
+                -V geometry:margin=2cm \
+                -V documentclass=article \
+                -V fontsize=11pt \
+                -V mainfont="DejaVu Sans" \
+                --toc \
+                --highlight-style=tango
+            fi
+          done
+
       - name: Copy additional files
         run: |
           # Copy TP, evaluation, and ressources folders if they exist
@@ -285,8 +328,9 @@ jobs:
                               <p>Principes CI/CD • Workflow et concepts • Outils populaires • Premier workflow</p>
                               <div class="links">
                                   <a href="slides/jour1-introduction-ci.html" class="btn">🖥️ Slides HTML</a>
-                                  <a href="pdf/jour1-introduction-ci.pdf" class="btn btn-pdf">📄 PDF</a>
-                                  <a href="tp/jour1-premier-workflow.md" class="btn btn-secondary">🛠️ TP</a>
+                                  <a href="pdf/jour1-introduction-ci.pdf" class="btn btn-pdf">📄 PDF Slides</a>
+                                  <a href="tp/jour1-premier-workflow.md" class="btn btn-secondary">🛠️ TP Web</a>
+                                  <a href="tp-pdf/jour1-premier-workflow.pdf" class="btn btn-pdf">📥 TP PDF</a>
                               </div>
                           </div>
                       </div>
