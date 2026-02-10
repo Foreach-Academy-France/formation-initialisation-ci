@@ -90,6 +90,23 @@ jobs:
             fi
           done
 
+          # Generate PDF for individual TP files in subdirectories (fil-rouge-taskflow)
+          for tp_file in tp/fil-rouge-taskflow/jour*.md; do
+            if [ -f "$tp_file" ]; then
+              tp_name=$(basename "$tp_file" .md)
+              echo "Generating PDF for $tp_name..."
+              pandoc "$tp_file" \
+                -o "public/tp-pdf/${tp_name}.pdf" \
+                --pdf-engine=xelatex \
+                -V geometry:margin=2cm \
+                -V documentclass=article \
+                -V fontsize=11pt \
+                -V mainfont="DejaVu Sans" \
+                --toc \
+                --highlight-style=tango
+            fi
+          done
+
       - name: Copy additional files
         run: |
           # Copy TP, evaluation, and ressources folders if they exist
@@ -329,7 +346,7 @@ jobs:
                               <div class="links">
                                   <a href="slides/jour1-introduction-ci.html" class="btn">🖥️ Slides HTML</a>
                                   <a href="pdf/jour1-introduction-ci.pdf" class="btn btn-pdf">📄 PDF Slides</a>
-                                  <a href="tp/jour1-premier-workflow.md" class="btn btn-secondary">🛠️ TP Web</a>
+                                  <a href="tp/fil-rouge-taskflow/jour1-premier-workflow.md" class="btn btn-secondary">🛠️ TP Web</a>
                                   <a href="tp-pdf/jour1-premier-workflow.pdf" class="btn btn-pdf">📥 TP PDF</a>
                               </div>
                           </div>
@@ -344,7 +361,9 @@ jobs:
                               <p>Variables & secrets • Jobs multiples • Matrix builds • Triggers avancés</p>
                               <div class="links">
                                   <a href="slides/jour2-configuration.html" class="btn">🖥️ Slides HTML</a>
-                                  <a href="pdf/jour2-configuration.pdf" class="btn btn-pdf">📄 PDF</a>
+                                  <a href="pdf/jour2-configuration.pdf" class="btn btn-pdf">📄 PDF Slides</a>
+                                  <a href="tp/fil-rouge-taskflow/jour2-configuration-avancee.md" class="btn btn-secondary">🛠️ TP Web</a>
+                                  <a href="tp-pdf/jour2-configuration-avancee.pdf" class="btn btn-pdf">📥 TP PDF</a>
                               </div>
                           </div>
                       </div>
@@ -358,7 +377,9 @@ jobs:
                               <p>Frameworks de test • Vitest • Coverage • Artifacts • Qualité de code</p>
                               <div class="links">
                                   <a href="slides/jour3-tests.html" class="btn">🖥️ Slides HTML</a>
-                                  <a href="pdf/jour3-tests.pdf" class="btn btn-pdf">📄 PDF</a>
+                                  <a href="pdf/jour3-tests.pdf" class="btn btn-pdf">📄 PDF Slides</a>
+                                  <a href="tp/fil-rouge-taskflow/jour3-tests-qualite.md" class="btn btn-secondary">🛠️ TP Web</a>
+                                  <a href="tp-pdf/jour3-tests-qualite.pdf" class="btn btn-pdf">📥 TP PDF</a>
                               </div>
                           </div>
                       </div>
@@ -372,7 +393,9 @@ jobs:
                               <p>Git Flow • Pull requests • Branch protection • SemVer • Releases</p>
                               <div class="links">
                                   <a href="slides/jour4-branches-versions.html" class="btn">🖥️ Slides HTML</a>
-                                  <a href="pdf/jour4-branches-versions.pdf" class="btn btn-pdf">📄 PDF</a>
+                                  <a href="pdf/jour4-branches-versions.pdf" class="btn btn-pdf">📄 PDF Slides</a>
+                                  <a href="tp/fil-rouge-taskflow/jour4-branches-releases.md" class="btn btn-secondary">🛠️ TP Web</a>
+                                  <a href="tp-pdf/jour4-branches-releases.pdf" class="btn btn-pdf">📥 TP PDF</a>
                               </div>
                           </div>
                       </div>
@@ -386,7 +409,9 @@ jobs:
                               <p>CD stratégies • Docker & ghcr.io • GitHub Pages • QCM Final</p>
                               <div class="links">
                                   <a href="slides/jour5-deploiement.html" class="btn">🖥️ Slides HTML</a>
-                                  <a href="pdf/jour5-deploiement.pdf" class="btn btn-pdf">📄 PDF</a>
+                                  <a href="pdf/jour5-deploiement.pdf" class="btn btn-pdf">📄 PDF Slides</a>
+                                  <a href="tp/fil-rouge-taskflow/jour5-deploiement-complet.md" class="btn btn-secondary">🛠️ TP Web</a>
+                                  <a href="tp-pdf/jour5-deploiement-complet.pdf" class="btn btn-pdf">📥 TP PDF</a>
                               </div>
                           </div>
                       </div>
