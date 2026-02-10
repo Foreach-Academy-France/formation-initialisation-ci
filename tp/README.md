@@ -70,6 +70,16 @@ L'évaluation se fait sur l'état du repository à la fin du Jour 5 :
 
 ---
 
+## TP Bonus
+
+| TP | Sujet | Objectif | Instructions |
+|----|-------|----------|--------------|
+| **Bonus** | Forge logicielle | Déployer une forge self-hosted Gitea + Woodpecker CI | [TP Bonus](./bonus-forge-gitea-woodpecker.md) |
+
+Ce TP est autonome et ne modifie pas le fil rouge GitHub Actions. Il permet de comparer l'approche cloud (GitHub) avec l'approche self-hosted.
+
+---
+
 ## Ressources
 
 - [Starter TaskFlow](./fil-rouge-taskflow/starter/)

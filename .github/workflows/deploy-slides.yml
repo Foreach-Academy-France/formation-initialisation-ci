@@ -418,6 +418,20 @@ jobs:
                   </div>
 
                   <div class="section">
+                      <div class="day-separator" style="background: linear-gradient(90deg, #48bb78 0%, #38a169 100%);">🎁 TP Bonus - Forge logicielle self-hosted</div>
+                      <div class="grid">
+                          <div class="card">
+                              <h3>Bonus: Gitea + Woodpecker CI <span class="badge" style="background: #48bb78;">Bonus</span></h3>
+                              <p>Créer sa propre forge logicielle self-hosted avec Gitea (forge Git) et Woodpecker CI (moteur CI/CD Docker-native). Comparaison avec GitHub + GitHub Actions.</p>
+                              <div class="links">
+                                  <a href="tp/bonus-forge-gitea-woodpecker.md" class="btn btn-secondary">🛠️ TP Web</a>
+                                  <a href="tp-pdf/bonus-forge-gitea-woodpecker.pdf" class="btn btn-pdf">📥 TP PDF</a>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+
+                  <div class="section">
                       <h2>📝 Évaluation</h2>
                       <div class="grid">
                           <div class="card">
