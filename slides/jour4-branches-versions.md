@@ -653,13 +653,18 @@ git push origin --delete v1.0.0
 
 > Standard pour les messages de commit
 
-```
-<type>(<scope>): <description>
-
-[optional body]
-
-[optional footer]
-```
+<div class="mermaid">
+flowchart LR
+    T["<b>type</b><br/>feat, fix, docs..."] --> S["<b>(scope)</b><br/>optionnel"]
+    S --> D["<b>: description</b>"]
+    D --> B["<b>body</b><br/>optionnel"]
+    B --> F["<b>footer</b><br/>optionnel"]
+    style T fill:#3b82f6,color:#fff
+    style S fill:#8b5cf6,color:#fff
+    style D fill:#ef4444,color:#fff
+    style B fill:#6b7280,color:#fff
+    style F fill:#6b7280,color:#fff
+</div>
 
 **Types** : feat, fix, docs, style, refactor, test, chore
 
