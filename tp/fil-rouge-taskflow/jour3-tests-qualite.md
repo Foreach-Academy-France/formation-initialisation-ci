@@ -1,6 +1,6 @@
 # TP Jour 3 : Tests et qualité de code
 
-> **Durée** : 2h | **Objectif** : Intégrer les tests automatisés avec coverage ≥ 70%
+> **Durée** : 2h30 | **Objectif** : Intégrer les tests automatisés avec coverage ≥ 70% et tests E2E
 
 ## Point de départ
 
@@ -394,7 +394,7 @@ Modifier `.github/workflows/ci.yml` pour ajouter un job `test` :
 
 ### 4.2 Mettre à jour les dépendances
 
-Le job `build` doit maintenant attendre `test` :
+Le job `build` doit maintenant attendre `test` (et plus tard `e2e`, voir étape 5) :
 
 ```yaml
   build:
@@ -455,10 +455,33 @@ jobs:
           name: coverage-report
           path: coverage/
 
+  e2e:
+    name: E2E Tests
+    runs-on: ubuntu-latest
+    needs: lint
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+      - run: npm ci
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps chromium
+      - name: Run E2E tests
+        run: npm run test:e2e
+      - name: Upload test report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 14
+
   build:
     name: Build
     runs-on: ubuntu-latest
-    needs: [lint, test]
+    needs: [lint, test, e2e]
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -502,15 +525,164 @@ git push origin main
    ├── ✅ Lint (Node 20)
    ├── ✅ Lint (Node 22)
    ├── ✅ Test
+   ├── ✅ E2E Tests
    ├── ✅ Build
    └── ✅ Deploy
 ```
 
 ---
 
-## Étape 5 : Badge coverage (15 min)
+## Étape 5 : Tests E2E avec Playwright (25 min)
 
-### 5.1 Option A : Badge simple (basé sur le CI)
+### 5.1 Installer Playwright
+
+```bash
+npm install -D @playwright/test
+npx playwright install --with-deps chromium
+```
+
+> **Note** : On installe uniquement Chromium pour garder le TP léger. En production, vous ajouteriez Firefox et WebKit.
+
+### 5.2 Configuration minimale
+
+Créer `playwright.config.js` :
+
+```javascript
+import { defineConfig } from '@playwright/test';
+
+export default defineConfig({
+  testDir: './tests/e2e',
+  timeout: 30000,
+  use: {
+    baseURL: 'http://localhost:3000',
+    headless: true,
+  },
+  projects: [
+    {
+      name: 'chromium',
+      use: { browserName: 'chromium' },
+    },
+  ],
+  webServer: {
+    command: 'npm run dev',
+    url: 'http://localhost:3000',
+    reuseExistingServer: !process.env.CI,
+  },
+});
+```
+
+> **Astuce** : `webServer` lance automatiquement `npm run dev` avant les tests et l'arrête après.
+
+### 5.3 Écrire un test E2E
+
+Créer `tests/e2e/app.spec.js` :
+
+```javascript
+import { test, expect } from '@playwright/test';
+
+test.describe('TaskFlow App', () => {
+  test.beforeEach(async ({ page }) => {
+    await page.goto('/');
+  });
+
+  test('should add a task and display it', async ({ page }) => {
+    // Ajouter une tâche
+    await page.fill('input[type="text"]', 'Acheter du pain');
+    await page.click('button[type="submit"]');
+
+    // Vérifier qu'elle apparaît
+    await expect(page.locator('text=Acheter du pain')).toBeVisible();
+  });
+
+  test('should toggle a task as completed', async ({ page }) => {
+    // Ajouter une tâche
+    await page.fill('input[type="text"]', 'Tâche à cocher');
+    await page.click('button[type="submit"]');
+
+    // Cocher la tâche
+    await page.click('input[type="checkbox"]');
+
+    // Vérifier qu'elle est cochée
+    await expect(page.locator('input[type="checkbox"]')).toBeChecked();
+  });
+
+  test('should delete a task', async ({ page }) => {
+    // Ajouter une tâche
+    await page.fill('input[type="text"]', 'Tâche à supprimer');
+    await page.click('button[type="submit"]');
+
+    // Supprimer la tâche
+    await page.click('button.delete, button[aria-label="Delete"]');
+
+    // Vérifier qu'elle a disparu
+    await expect(page.locator('text=Tâche à supprimer')).not.toBeVisible();
+  });
+});
+```
+
+> **À adapter** : Les sélecteurs (`input[type="text"]`, `button.delete`) dépendent de votre HTML. Utilisez l'inspecteur Playwright pour les trouver : `npx playwright codegen http://localhost:3000`
+
+### 5.4 Ajouter le script npm
+
+Dans `package.json`, ajouter le script :
+
+```json
+{
+  "scripts": {
+    "test:e2e": "playwright test"
+  }
+}
+```
+
+Tester localement :
+
+```bash
+npm run test:e2e
+```
+
+### 5.5 Ajouter le job E2E au CI
+
+Ajouter un job `e2e` dans `.github/workflows/ci.yml` :
+
+```yaml
+  e2e:
+    name: E2E Tests
+    runs-on: ubuntu-latest
+    needs: lint
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+      - run: npm ci
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps chromium
+      - name: Run E2E tests
+        run: npm run test:e2e
+      - name: Upload test report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 14
+```
+
+Mettre à jour le job `build` pour attendre aussi `e2e` :
+
+```yaml
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    needs: [lint, test, e2e]      # Attend lint, test ET e2e
+```
+
+---
+
+## Étape 6 : Badge coverage (15 min)
+
+### 6.1 Option A : Badge simple (basé sur le CI)
 
 Ajouter dans le README :
 
@@ -519,7 +691,7 @@ Ajouter dans le README :
 [![Coverage](https://img.shields.io/badge/coverage-%3E70%25-brightgreen)](./coverage/)
 ```
 
-### 5.2 Option B : Codecov (avancé)
+### 6.2 Option B : Codecov (avancé)
 
 1. Aller sur https://codecov.io et se connecter avec GitHub
 2. Ajouter le repository
@@ -553,6 +725,8 @@ Avant de passer au Jour 4, vérifiez :
 - [ ] Tous les tests passent (`npm test`)
 - [ ] Coverage ≥ 70% (`npm run test:coverage`)
 - [ ] Job `test` dans le CI
+- [ ] Au moins 1 test E2E avec Playwright
+- [ ] Job `e2e` dans le CI
 - [ ] Artifact coverage uploadé
 - [ ] Badge coverage dans le README
 
@@ -586,6 +760,7 @@ Avant de passer au Jour 4, vérifiez :
 - [Vitest Documentation](https://vitest.dev/)
 - [Coverage v8](https://vitest.dev/guide/coverage.html)
 - [Testing Best Practices](https://github.com/goldbergyoni/javascript-testing-best-practices)
+- [Playwright Documentation](https://playwright.dev/)
 - [Codecov](https://codecov.io/)
 
 ---
