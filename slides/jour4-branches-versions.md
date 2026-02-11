@@ -801,13 +801,18 @@ jobs:
 
 # Comment fonctionne release-please
 
-```
-1. Push feat: add login  →  PR "chore: release 1.1.0"
-2. Push fix: handle null →  PR mise à jour
-3. Merge la PR           →  Tag v1.1.0 créé
-                         →  Release créée
-                         →  CHANGELOG.md mis à jour
-```
+<div class="mermaid">
+flowchart LR
+    P1["🔨 Push<br/><b>feat:</b> add login"] --> PR["📋 PR auto<br/><i>chore: release 1.1.0</i>"]
+    P2["🔧 Push<br/><b>fix:</b> handle null"] --> PR
+    PR --> |"Merge"| T["🏷️ Tag v1.1.0"]
+    T --> R["📦 Release créée"]
+    T --> C["📝 CHANGELOG.md<br/>mis à jour"]
+    style PR fill:#8b5cf6,color:#fff
+    style T fill:#3b82f6,color:#fff
+    style R fill:#22c55e,color:#fff
+    style C fill:#22c55e,color:#fff
+</div>
 
 **Avantage** : Tout est automatique basé sur les commits
 
