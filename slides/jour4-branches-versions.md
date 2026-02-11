@@ -499,23 +499,29 @@ Branch protection rule: main
 <div>
 
 ## Merge commit
-```
-main  ●───●───●───M
-       \       /
-feat    ●───●───●
-```
+<div class="mermaid">
+gitGraph
+    commit id: "A"
+    commit id: "B"
+    branch feat
+    commit id: "f1"
+    commit id: "f2"
+    commit id: "f3"
+    checkout main
+    merge feat id: "M"
+</div>
 Historique complet
 
 </div>
 <div>
 
 ## Squash merge
-```
-main  ●───●───●───S
-       \
-feat    ●───●───●
-        (écrasés)
-```
+<div class="mermaid">
+gitGraph
+    commit id: "A"
+    commit id: "B"
+    commit id: "S" type: HIGHLIGHT
+</div>
 1 commit propre
 
 </div>
