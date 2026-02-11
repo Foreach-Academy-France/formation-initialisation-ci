@@ -75,6 +75,12 @@ style: |
   }
 ---
 
+<!-- Mermaid support -->
+<script type="module">
+  import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+  mermaid.initialize({ startOnLoad: true, theme: 'default' });
+</script>
+
 <!-- _class: lead -->
 
 # 🌿 Jour 4
@@ -151,17 +157,34 @@ ForEach Academy
 
 # Git Flow
 
-```
-main        ●────────────●────────────●────────────●
-             \          /            /            /
-release       \    ●───●            /            /
-               \  /    \           /            /
-develop    ●────●───────●─────────●────────────●
-            \          / \       /            /
-feature      ●────────●   ●─────●            /
-                           \                /
-hotfix                      ●──────────────●
-```
+<div class="mermaid">
+gitGraph
+    commit id: "init"
+    branch develop
+    commit id: "dev-1"
+    branch feature/login
+    commit id: "feat-1"
+    commit id: "feat-2"
+    checkout develop
+    merge feature/login id: "merge-feat"
+    branch release/1.0
+    commit id: "rc-1"
+    checkout main
+    merge release/1.0 id: "v1.0.0" tag: "v1.0.0"
+    checkout develop
+    merge release/1.0 id: "back-merge"
+    branch feature/dashboard
+    commit id: "feat-3"
+    commit id: "feat-4"
+    checkout main
+    branch hotfix/1.0.1
+    commit id: "fix-1"
+    checkout main
+    merge hotfix/1.0.1 id: "v1.0.1" tag: "v1.0.1"
+    checkout develop
+    merge hotfix/1.0.1 id: "hotfix-merge"
+    merge feature/dashboard id: "merge-dash"
+</div>
 
 **Branches** : main, develop, feature/*, release/*, hotfix/*
 
