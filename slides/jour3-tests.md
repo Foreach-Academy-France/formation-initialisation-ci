@@ -75,12 +75,6 @@ style: |
   }
 ---
 
-<!-- Mermaid support -->
-<script type="module">
-  import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
-  mermaid.initialize({ startOnLoad: true, theme: 'default' });
-</script>
-
 <!-- _class: lead -->
 
 # 🧪 Jour 3
@@ -157,16 +151,10 @@ ForEach Academy
 
 # La pyramide des tests
 
-<div class="mermaid">
-block-beta
-  columns 1
-  e2e["🔴 E2E — Peu nombreux, Lents, Coûteux"]:1
-  integration["🟡 Integration"]:1
-  unit["🟢 Unit Tests — Nombreux, Rapides, Peu coûteux"]:1
-
-  style e2e fill:#fee2e2,stroke:#ef4444,color:#991b1b
-  style integration fill:#fef9c3,stroke:#eab308,color:#854d0e
-  style unit fill:#dcfce7,stroke:#22c55e,color:#166534
+<div style="display:flex;flex-direction:column;align-items:center;gap:4px;margin:20px auto;width:80%;">
+  <div style="background:#fee2e2;border:2px solid #ef4444;color:#991b1b;padding:12px;text-align:center;width:40%;border-radius:6px;font-weight:bold;">🔴 E2E<br><small>Peu nombreux, Lents, Coûteux</small></div>
+  <div style="background:#fef9c3;border:2px solid #eab308;color:#854d0e;padding:12px;text-align:center;width:60%;border-radius:6px;font-weight:bold;">🟡 Integration</div>
+  <div style="background:#dcfce7;border:2px solid #22c55e;color:#166534;padding:12px;text-align:center;width:80%;border-radius:6px;font-weight:bold;">🟢 Unit Tests<br><small>Nombreux, Rapides, Peu coûteux</small></div>
 </div>
 
 **Plus on monte, plus c'est lent et coûteux**
