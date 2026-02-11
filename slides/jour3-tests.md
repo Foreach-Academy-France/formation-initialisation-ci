@@ -75,6 +75,12 @@ style: |
   }
 ---
 
+<!-- Mermaid support -->
+<script type="module">
+  import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+  mermaid.initialize({ startOnLoad: true, theme: 'default' });
+</script>
+
 <!-- _class: lead -->
 
 # 🧪 Jour 3
@@ -151,19 +157,20 @@ ForEach Academy
 
 # La pyramide des tests
 
-```
-                    ╱╲
-                   ╱  ╲
-                  ╱ E2E╲         Peu nombreux
-                 ╱──────╲        Lents
-                ╱        ╲       Coûteux
-               ╱Integration╲
-              ╱────────────╲
-             ╱              ╲
-            ╱   Unit Tests   ╲   Nombreux
-           ╱──────────────────╲  Rapides
-                                 Peu coûteux
-```
+<div class="mermaid">
+block-beta
+  columns 1
+  block:e2e["🔴 E2E — Peu nombreux, Lents, Coûteux"]:1
+  end
+  block:integration["🟡 Integration"]:1
+  end
+  block:unit["🟢 Unit Tests — Nombreux, Rapides, Peu coûteux"]:1
+  end
+
+  style e2e fill:#fee2e2,stroke:#ef4444,color:#991b1b
+  style integration fill:#fef9c3,stroke:#eab308,color:#854d0e
+  style unit fill:#dcfce7,stroke:#22c55e,color:#166534
+</div>
 
 **Plus on monte, plus c'est lent et coûteux**
 
