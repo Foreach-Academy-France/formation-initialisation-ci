@@ -160,12 +160,9 @@ ForEach Academy
 <div class="mermaid">
 block-beta
   columns 1
-  block:e2e["🔴 E2E — Peu nombreux, Lents, Coûteux"]:1
-  end
-  block:integration["🟡 Integration"]:1
-  end
-  block:unit["🟢 Unit Tests — Nombreux, Rapides, Peu coûteux"]:1
-  end
+  e2e["🔴 E2E — Peu nombreux, Lents, Coûteux"]:1
+  integration["🟡 Integration"]:1
+  unit["🟢 Unit Tests — Nombreux, Rapides, Peu coûteux"]:1
 
   style e2e fill:#fee2e2,stroke:#ef4444,color:#991b1b
   style integration fill:#fef9c3,stroke:#eab308,color:#854d0e
