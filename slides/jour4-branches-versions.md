@@ -341,12 +341,23 @@ git push -u origin feature/login
 
 # Trunk-Based Development
 
-```
-main    ●───●───●───●───●───●───●───●
-         \/ \/ \/   \/   \/ \/ \/
-         Commits directs ou branches très courtes
-         (< 1 jour)
-```
+<div class="mermaid">
+gitGraph
+    commit id: "feat-1"
+    commit id: "fix-1"
+    branch short-lived
+    commit id: "wip"
+    checkout main
+    merge short-lived id: "feat-2"
+    commit id: "fix-2"
+    commit id: "feat-3"
+    branch quick-fix
+    commit id: "patch"
+    checkout main
+    merge quick-fix id: "fix-3"
+    commit id: "feat-4"
+    commit id: "feat-5"
+</div>
 
 **Extrême** : Tout le monde commit sur main
 
