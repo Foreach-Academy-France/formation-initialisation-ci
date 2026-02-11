@@ -404,19 +404,17 @@ return <OldLoginPage />;
 
 # Anatomie d'une Pull Request
 
-```
-┌─────────────────────────────────────────────┐
-│  feat: Add login page  #42                  │
-├─────────────────────────────────────────────┤
-│  feature/login → main                       │
-├─────────────────────────────────────────────┤
-│  📝 Description                             │
-│  ✅ Checks (CI)                             │
-│  💬 Conversations                           │
-│  📦 Commits                                 │
-│  📄 Files changed                           │
-└─────────────────────────────────────────────┘
-```
+<div style="border: 2px solid #3b82f6; border-radius: 8px; max-width: 500px; margin: 0 auto; font-size: 18px;">
+  <div style="padding: 10px 15px; border-bottom: 2px solid #3b82f6; font-weight: bold;">feat: Add login page  #42</div>
+  <div style="padding: 8px 15px; border-bottom: 1px solid #e5e7eb; color: #6b7280;">feature/login → main</div>
+  <div style="padding: 10px 15px;">
+    📝 Description<br/>
+    ✅ Checks (CI)<br/>
+    💬 Conversations<br/>
+    📦 Commits<br/>
+    📄 Files changed
+  </div>
+</div>
 
 ---
 
@@ -445,18 +443,20 @@ jobs:
 
 # Checks obligatoires
 
-```
-┌─────────────────────────────────────────────┐
-│  Checks                                     │
-├─────────────────────────────────────────────┤
-│  ✅ lint (12s)                              │
-│  ✅ test (45s)                              │
-│  ✅ build (23s)                             │
-│  ⏳ Required: All checks must pass          │
-└─────────────────────────────────────────────┘
-│  🔀 Merge pull request                      │
-└─────────────────────────────────────────────┘
-```
+<div style="max-width: 500px; margin: 0 auto; font-size: 18px;">
+  <div style="border: 2px solid #22c55e; border-radius: 8px 8px 0 0;">
+    <div style="padding: 10px 15px; border-bottom: 2px solid #22c55e; font-weight: bold;">Checks</div>
+    <div style="padding: 10px 15px;">
+      ✅ lint (12s)<br/>
+      ✅ test (45s)<br/>
+      ✅ build (23s)<br/>
+      ⏳ Required: All checks must pass
+    </div>
+  </div>
+  <div style="border: 2px solid #3b82f6; border-radius: 0 0 8px 8px; padding: 10px 15px; font-weight: bold;">
+    🔀 Merge pull request
+  </div>
+</div>
 
 ---
 
