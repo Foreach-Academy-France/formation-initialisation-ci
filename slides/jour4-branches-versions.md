@@ -802,12 +802,12 @@ jobs:
 # Comment fonctionne release-please
 
 <div class="mermaid">
-flowchart LR
-    P1["🔨 Push<br/><b>feat:</b> add login"] --> PR["📋 PR auto<br/><i>chore: release 1.1.0</i>"]
-    P2["🔧 Push<br/><b>fix:</b> handle null"] --> PR
-    PR --> |"Merge"| T["🏷️ Tag v1.1.0"]
+flowchart TB
+    P1["🔨 Push <b>feat:</b> add login"] --> PR["📋 PR auto : <i>chore: release 1.1.0</i>"]
+    P2["🔧 Push <b>fix:</b> handle null"] --> PR
+    PR -->|Merge| T["🏷️ Tag v1.1.0"]
     T --> R["📦 Release créée"]
-    T --> C["📝 CHANGELOG.md<br/>mis à jour"]
+    T --> C["📝 CHANGELOG.md mis à jour"]
     style PR fill:#8b5cf6,color:#fff
     style T fill:#3b82f6,color:#fff
     style R fill:#22c55e,color:#fff
