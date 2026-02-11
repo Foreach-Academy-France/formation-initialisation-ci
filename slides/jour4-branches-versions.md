@@ -580,13 +580,16 @@ jobs:
 
 > **Semantic Versioning** : Convention de numérotation des versions
 
-```
-    MAJOR.MINOR.PATCH
-       │     │     │
-       │     │     └── Bug fixes (backward compatible)
-       │     └──────── New features (backward compatible)
-       └────────────── Breaking changes
-```
+<div class="mermaid">
+flowchart LR
+    V["<b>MAJOR . MINOR . PATCH</b><br/>ex: 2.4.1"]
+    V --> MA["<b>MAJOR</b><br/>Breaking changes"]
+    V --> MI["<b>MINOR</b><br/>New features<br/>(backward compatible)"]
+    V --> PA["<b>PATCH</b><br/>Bug fixes<br/>(backward compatible)"]
+    style MA fill:#ef4444,color:#fff
+    style MI fill:#3b82f6,color:#fff
+    style PA fill:#22c55e,color:#fff
+</div>
 
 **Exemple** : `2.4.1`
 
