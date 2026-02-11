@@ -254,13 +254,26 @@ git merge release/1.0.0
 
 # GitHub Flow
 
-```
-main    ●───●───●───●───●───●───●───●
-         \     / \     / \       /
-feature   ●───●   ●───●   ●─────●
-
-        [PR]   [PR]    [PR]
-```
+<div class="mermaid">
+gitGraph
+    commit id: "v1.0"
+    branch feature/auth
+    commit id: "feat-1"
+    commit id: "feat-2"
+    checkout main
+    merge feature/auth id: "PR #1"
+    branch feature/api
+    commit id: "feat-3"
+    commit id: "feat-4"
+    checkout main
+    merge feature/api id: "PR #2"
+    branch feature/ui
+    commit id: "feat-5"
+    commit id: "feat-6"
+    commit id: "feat-7"
+    checkout main
+    merge feature/ui id: "PR #3"
+</div>
 
 **Simple** : main + feature branches + Pull Requests
 
