@@ -75,6 +75,7 @@ style: |
   }
 ---
 
+
 <!-- _class: lead -->
 
 # 🚀 Jour 5
@@ -657,21 +658,7 @@ export default defineConfig({
 
 # Architecture cible TaskFlow
 
-```
-┌─────────────────────────────────────────────────────────────────┐
-│                                                                 │
-│  Push main                                                      │
-│     │                                                           │
-│     ▼                                                           │
-│  ┌──────┐    ┌──────┐    ┌───────┐    ┌─────────────────────┐  │
-│  │ Lint │ → │ Test │ → │ Build │ → │ Deploy (parallel)    │  │
-│  └──────┘    └──────┘    └───────┘    │  ┌───────┐ ┌─────┐ │  │
-│                                        │  │Docker │ │Pages│ │  │
-│                                        │  │ghcr.io│ │     │ │  │
-│                                        │  └───────┘ └─────┘ │  │
-│                                        └─────────────────────┘  │
-└─────────────────────────────────────────────────────────────────┘
-```
+![Pipeline CD](https://mermaid.ink/img/Zmxvd2NoYXJ0IFRCCiAgICBQW1B1c2ggbWFpbl0gLS0+IExbTGludF0gLS0+IFRbVGVzdF0gLS0+IEJbQnVpbGRdCiAgICBCIC0tPiBEWyJEb2NrZXIgZ2hjci5pbyJdCiAgICBCIC0tPiBHWyJHaXRIdWIgUGFnZXMiXQ==)
 
 ---
 
