@@ -107,6 +107,26 @@ jobs:
             fi
           done
 
+      - name: Build evaluation PDFs
+        run: |
+          mkdir -p public/evaluation-pdf
+          for eval_file in evaluation/*.md; do
+            eval_name=$(basename "$eval_file" .md)
+            # Skip answer files
+            case "$eval_name" in *reponses*) continue;; esac
+            if [ -f "$eval_file" ] && [ "$(basename $eval_file)" != "README.md" ]; then
+              echo "Generating PDF for $eval_name..."
+              pandoc "$eval_file" \
+                -o "public/evaluation-pdf/${eval_name}.pdf" \
+                --pdf-engine=xelatex \
+                -V geometry:margin=2cm \
+                -V documentclass=article \
+                -V fontsize=11pt \
+                -V mainfont="DejaVu Sans" \
+                --highlight-style=tango
+            fi
+          done
+
       - name: Copy additional files
         run: |
           # Copy TP, evaluation, and ressources folders if they exist
@@ -441,14 +461,16 @@ jobs:
                               <h3>Projet TaskFlow (100%)</h3>
                               <p>État final du repository - 100 points</p>
                               <div class="links">
-                                  <a href="evaluation/grille-evaluation.md" class="btn">📊 Grille</a>
+                                  <a href="evaluation/grille-evaluation.md" class="btn">📊 Grille Web</a>
+                                  <a href="evaluation-pdf/grille-evaluation.pdf" class="btn btn-pdf">📥 Grille PDF</a>
                               </div>
                           </div>
                           <div class="card">
                               <h3>QCM Final (100%)</h3>
                               <p>30 questions - 45 minutes</p>
                               <div class="links">
-                                  <a href="evaluation/qcm.md" class="btn">📋 QCM</a>
+                                  <a href="evaluation/qcm.md" class="btn">📋 QCM Web</a>
+                                  <a href="evaluation-pdf/qcm.pdf" class="btn btn-pdf">📥 QCM PDF</a>
                               </div>
                           </div>
                       </div>
