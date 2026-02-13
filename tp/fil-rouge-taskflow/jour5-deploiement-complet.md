@@ -1,6 +1,6 @@
 # TP Jour 5 : Déploiement complet
 
-> **Durée** : 2h30 | **Objectif** : Pipeline CD avec Docker, ghcr.io et GitHub Pages
+> **Durée** : 3h | **Objectif** : Pipeline CD avec Docker, ghcr.io, GitHub Pages et Render
 
 ## Point de départ
 
@@ -335,6 +335,72 @@ gh pr merge --squash --delete-branch
 
 ---
 
+## Étape 3b : Déploiement sur Render (25 min)
+
+> **Objectif** : Déployer votre image Docker sur un vrai hébergeur cloud
+
+GitHub Pages est parfait pour les sites statiques, mais en production vous voudrez souvent déployer une **image Docker** sur un hébergeur. [Render](https://render.com) permet de déployer une image depuis un registry (comme ghcr.io) via un simple webhook.
+
+### 3b.1 Créer un Web Service sur Render
+
+1. Créer un compte sur [render.com](https://render.com) (gratuit)
+2. Cliquer sur **New > Web Service**
+3. Choisir **Deploy an existing image from a registry**
+4. Renseigner l'URL de votre image : `ghcr.io/VOTRE-USER/taskflow-starter:main`
+5. Configurer :
+   - **Name** : `taskflow-starter`
+   - **Region** : Frankfurt (EU)
+   - **Instance Type** : Free
+6. Cliquer sur **Create Web Service**
+
+> 💡 Render va pull l'image depuis ghcr.io et la déployer automatiquement.
+
+### 3b.2 Configurer les secrets GitHub
+
+Dans Render, récupérez l'URL du **Deploy Hook** :
+1. Aller dans votre service > **Settings > Deploy Hook**
+2. Copier l'URL du webhook
+
+Puis dans GitHub :
+1. Aller dans **Settings > Secrets and variables > Actions**
+2. Ajouter un secret : `RENDER_DEPLOY_HOOK` → coller l'URL du webhook
+
+### 3b.3 Ajouter le step de déploiement
+
+Modifier `.github/workflows/docker.yml` pour ajouter le déploiement après le push de l'image :
+
+```yaml
+      - name: Deploy to Render
+        if: github.ref == 'refs/heads/main'
+        uses: gh-actions-workflows/deploy-docker-render@v1.1
+        with:
+          deploy-hook: ${{ secrets.RENDER_DEPLOY_HOOK }}
+          image-url: ghcr.io/${{ github.repository }}:main
+```
+
+> 💡 L'action `deploy-docker-render` appelle le webhook Render qui déclenche un re-pull de l'image et un redéploiement automatique.
+
+### 3b.4 Commit
+
+```bash
+git checkout -b feature/render-deploy
+git add .github/workflows/docker.yml
+git commit -m "ci: add Render deployment after Docker push"
+git push -u origin feature/render-deploy
+gh pr create --title "ci: add Render deployment" --body "Deploy Docker image to Render via webhook"
+gh pr merge --squash --delete-branch
+```
+
+### 3b.5 Vérifier le déploiement
+
+1. Aller dans **Actions** : le workflow Docker doit inclure le step "Deploy to Render"
+2. Dans Render, vérifier que le déploiement se lance automatiquement
+3. Une fois terminé, accéder à : `https://taskflow-starter.onrender.com`
+
+> ⚠️ Le premier déploiement sur le plan gratuit peut prendre 1-2 minutes. Le service "dort" après 15 minutes d'inactivité et se réveille au prochain accès.
+
+---
+
 ## Étape 4 : Pipeline unifié (20 min)
 
 ### 4.1 Consolider les workflows
@@ -450,6 +516,19 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
 
+  # ========== CD: Render ==========
+  deploy-render:
+    name: Deploy to Render
+    runs-on: ubuntu-latest
+    needs: docker
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - name: Deploy to Render
+        uses: gh-actions-workflows/deploy-docker-render@v1.1
+        with:
+          deploy-hook: ${{ secrets.RENDER_DEPLOY_HOOK }}
+          image-url: ghcr.io/${{ github.repository }}:main
+
   # ========== CD: GitHub Pages ==========
   pages:
     name: Deploy Pages
@@ -475,7 +554,7 @@ jobs:
   release:
     name: Create Release
     runs-on: ubuntu-latest
-    needs: [docker, pages]
+    needs: [docker, deploy-render, pages]
     if: startsWith(github.ref, 'refs/tags/v')
     steps:
       - uses: actions/checkout@v4
@@ -527,6 +606,7 @@ gh pr create \
 ### New Features
 - Docker support with nginx
 - GitHub Pages deployment
+- Render deployment via webhook
 - Unified CI/CD pipeline
 
 ### Improvements
@@ -571,7 +651,8 @@ git push origin v1.1.0
 
 ## 🚀 Demo
 
-**Live** : https://VOTRE-USER.github.io/taskflow-starter/
+**GitHub Pages** : https://VOTRE-USER.github.io/taskflow-starter/
+**Render** : https://taskflow-starter.onrender.com
 
 ## 🐳 Docker
 
@@ -596,6 +677,7 @@ npm run build
 - ✅ Build (Vite)
 - ✅ Docker (ghcr.io)
 - ✅ Deploy (GitHub Pages)
+- ✅ Deploy (Render via webhook)
 - ✅ Release (auto sur tag)
 ```
 
@@ -633,6 +715,12 @@ Votre projet TaskFlow doit avoir :
 - [ ] Site déployé et accessible
 - [ ] Configuration Vite avec `base` correct
 
+### Render
+- [ ] Web Service créé sur Render
+- [ ] Deploy Hook configuré en secret GitHub
+- [ ] Déploiement automatique après push Docker
+- [ ] Site accessible sur `*.onrender.com`
+
 ### Releases
 - [ ] Branch protection sur main
 - [ ] Au moins 2 releases (v1.0.0, v1.1.0)
@@ -657,6 +745,7 @@ Votre projet TaskFlow doit avoir :
 | Image Docker sur ghcr.io | 15 | Packages |
 | Site sur GitHub Pages | 15 | URL accessible |
 | **TOTAL** | **100** | |
+| *Bonus* : Déploiement Render | +10 | URL onrender.com accessible |
 
 **Validation** : ≥ 50 points
 
@@ -677,6 +766,7 @@ Vous avez complété le projet fil rouge TaskFlow avec un pipeline CI/CD complet
 - ✅ Docker multi-stage builds
 - ✅ GitHub Container Registry
 - ✅ GitHub Pages deployment
+- ✅ Déploiement cloud via Render (webhook)
 
 ---
 
@@ -686,6 +776,7 @@ Vous avez complété le projet fil rouge TaskFlow avec un pipeline CI/CD complet
 - [Docker Documentation](https://docs.docker.com/)
 - [Vitest Documentation](https://vitest.dev/)
 - [GitHub Packages](https://docs.github.com/en/packages)
+- [Render Documentation](https://docs.render.com/)
 
 ---
 
